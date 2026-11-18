@@ -80,7 +80,10 @@
             <div class="modal-info">
                 <div class="portrait-frame"> <!-- wrapper so the CUSTOM label can sit on top of the portrait -->
                     <img class="modal-portrait" id="modalPortrait" src="" alt="">
-                    <span class="custom-label modal-custom-label hidden" id="modalCustomLabel">CUSTOM</span>
+                    <span class="overlay-label modal-overlay-label"> <!-- CUSTOM / BETA text on top of the portrait -->
+                        <span class="overlay-custom hidden" id="modalCustomText">CUSTOM</span>
+                        <span class="overlay-beta hidden" id="modalBetaText">BETA</span>
+                    </span>
                 </div>
                     <div class="modal-text">
                         <div class="modal-servant-title">

@@ -187,20 +187,22 @@ body {
   display: block;
 }
 
-/* "CUSTOM" text laid over custom servant/master images */
-.custom-label {
+/* "CUSTOM" / "BETA" text laid over flagged servant/master images */
+.overlay-label {
   position: absolute;
   display: flex;
-  align-items: center;             /* centre the text vertically */
-  justify-content: center;         /* centre the text horizontally */
-  color: rgba(255, 255, 255, 0.5); /* white at 50% opacity */
+  flex-direction: column;          /* if a card is both custom and beta, the words stack */
+  align-items: center;             /* centre the text horizontally */
+  justify-content: center;         /* centre the text vertically */
   font-weight: bold;
   letter-spacing: 4px;
   pointer-events: none;            /* clicks and hovers go through to the card underneath */
+  -webkit-text-stroke: 0.12em black; /* black outline; in em so it scales with the text (thinner on grid cards, thicker on the modal) */
+  paint-order: stroke fill;        /* draw the outline behind the letters so it doesn't eat into them */
 }
 
 /* size and position on a grid card: covers only the artwork (not the name and traits at the bottom), so the text centres on the picture */
-.card-custom-label {
+.card-overlay-label {
   top: 0;
   left: 0;
   width: 172px;                     /* 170px card + 1px border on each side */
@@ -215,13 +217,25 @@ body {
 }
 
 /* on the modal portrait: covers the whole portrait */
-.modal-custom-label {
+.modal-overlay-label {
   inset: 0;
   font-size: 48px;
 }
 
-.custom-label.hidden {
-  display: none;           /* hidden for non-custom servants/masters */
+/* the colour is solid and the opacity is set on the whole word, so the solid letters hide
+   the outline underneath them and the text looks exactly as before, just with an outline */
+.overlay-custom {
+  color: rgb(255, 255, 255);        /* "CUSTOM": white */
+  opacity: 0.5;                     /* at 50% opacity */
+}
+
+.overlay-beta {
+  color: rgb(255, 215, 0);          /* "BETA": gold */
+  opacity: 0.6;                     /* at 60% opacity */
+}
+
+.overlay-label .hidden {
+  display: none;           /* hide whichever word doesn't apply */
 }
 
 .modal-info {

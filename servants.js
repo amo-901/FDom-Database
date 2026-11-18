@@ -67,12 +67,12 @@ function renderGrid(servants) { // draws the grid of servant cards for the given
     img.loading = 'lazy'; // for making it easier to load website
     img.fetchPriority = 'low'; // low image fetch priority
 
-    const label = servant.is_custom_servant ? createCustomLabel() : null; // custom servants get a "CUSTOM" overlay, others get nothing
+    const label = createOverlayLabel(servant.is_custom_servant, servant.is_beta_servant); // custom/beta servants get a "CUSTOM"/"BETA" overlay, others get null
 
     img.addEventListener('mouseenter', () => { // when the mouse enters the card
       img.classList.add('is-hovering'); // add hover styling class
       img.style.transition = 'none'; // turn off transition so the tilt follows the mouse instantly
-      copyTilt(img, label); // make the CUSTOM label (if any) do the same
+      copyTilt(img, label); // make the overlay label (if any) do the same
     });
 
     img.addEventListener('mousemove', (event) => { // whenever the mouse moves over the card
@@ -91,14 +91,14 @@ function renderGrid(servants) { // draws the grid of servant cards for the given
         rotateY(${rotateY}deg)
         scale(1.06)
       `; // lift the card 20px, apply the tilt, and enlarge it slightly
-      copyTilt(img, label); // tilt the CUSTOM label (if any) with the card
+      copyTilt(img, label); // tilt the overlay label (if any) with the card
     });
 
     img.addEventListener('mouseleave', () => { // when the mouse leaves the card
       img.classList.remove('is-hovering'); // remove hover styling
       img.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease'; // re-enable a smooth transition
       img.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)'; // return to the resting position
-      copyTilt(img, label); // return the CUSTOM label (if any) too
+      copyTilt(img, label); // return the overlay label (if any) too
     });
 
     img.addEventListener('click', () => { // when the card is clicked
@@ -106,20 +106,36 @@ function renderGrid(servants) { // draws the grid of servant cards for the given
     });
 
     slot.appendChild(img); // append the image to the slot
-    if (label) slot.appendChild(label); // put the CUSTOM label on top of the card
+    if (label) slot.appendChild(label); // put the CUSTOM/BETA label on top of the card
     grid.appendChild(slot); //append the slot to the grid, this is what finally adds the servant to the grid
   });
 }
 
-function createCustomLabel() { // makes the "CUSTOM" text that sits on top of a grid card
-  const label = document.createElement('span'); // a span element for the text
-  label.classList.add('custom-label', 'card-custom-label'); // shared label style + grid-card size
-  label.textContent = 'CUSTOM'; // the text shown
+function createOverlayLabel(isCustom, isBeta) { // makes the "CUSTOM" / "BETA" text that sits on top of a grid card
+  if (!isCustom && !isBeta) return null; // normal card: no label at all
+
+  const label = document.createElement('span'); // container that covers the card's artwork
+  label.classList.add('overlay-label', 'card-overlay-label'); // shared label style + grid-card size
+
+  if (isCustom) { // flagged as custom in the json
+    const word = document.createElement('span'); // one word
+    word.classList.add('overlay-custom'); // white, 50% opacity
+    word.textContent = 'CUSTOM';
+    label.appendChild(word);
+  }
+
+  if (isBeta) { // flagged as beta in the json
+    const word = document.createElement('span'); // one word
+    word.classList.add('overlay-beta'); // gold, 60% opacity
+    word.textContent = 'BETA';
+    label.appendChild(word);
+  }
+
   return label; // hand it back so renderGrid can add it to the slot
 }
 
-function copyTilt(img, label) { // copies the card's current tilt/lift onto its CUSTOM label so they move together
-  if (!label) return; // not a custom card, nothing to do
+function copyTilt(img, label) { // copies the card's current tilt/lift onto its overlay label so they move together
+  if (!label) return; // card has no label, nothing to do
   label.style.transition = img.style.transition; // same animation speed
   label.style.transform = img.style.transform; // same tilt, lift and scale
 }
@@ -133,7 +149,8 @@ function showServantModal(servant) { // fills in and shows the popup (does not t
   document.getElementById('modalPortrait').src =
     `images/Servants/${servant.servant_id}/Archetype.webp`; // set the big portrait image
   document.getElementById('modalPortrait').fetchPriority = 'high' // load the portrait with high priority
-  document.getElementById('modalCustomLabel').classList.toggle('hidden', !servant.is_custom_servant); // show "CUSTOM" on the portrait only for custom servants
+  document.getElementById('modalCustomText').classList.toggle('hidden', !servant.is_custom_servant); // show "CUSTOM" on the portrait only for custom servants
+  document.getElementById('modalBetaText').classList.toggle('hidden', !servant.is_beta_servant); // show "BETA" on the portrait only for beta servants
 
   const skillsContainer = document.getElementById('modalSkills'); // box that holds skill images
   skillsContainer.innerHTML = '';   // clear any previous servant's skills first

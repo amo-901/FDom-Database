@@ -31,6 +31,8 @@ function buildCardIndex(data) { // returns an array of { name, src } objects, on
   data.servants.forEach((servant) => { // loop over every servant
     const folder = `images/Servants/${servant.servant_id}`; // this servant's image folder
 
+    addCard(servant.servant_name, `${folder}/Archetype.webp`); // the servant's own card, found by typing their name
+
     servant.skills.forEach((skill) => { // each skill card
       if (skill.is_shared) { // shared class skills live in their own folder
         addCard(skill.skill_name, `images/Shared-Class-Skills/${skill.skill_name.replace(/ /g, '_')}.webp`); // spaces become _ in the file name
@@ -58,6 +60,8 @@ function buildCardIndex(data) { // returns an array of { name, src } objects, on
 
   data.masters.forEach((master) => { // loop over every master
     const folder = `images/Masters/${master.master_id}`; // this master's image folder
+
+    addCard(master.master_name, `${folder}/Profile.webp`); // the master's own card, found by typing their name
 
     master.abilities.forEach((ability) => { // each ability card
       addCard(ability.card_name, `${folder}/Abilities/Ability${ability.ability_order}.webp`);
