@@ -243,7 +243,8 @@ body {
   gap: 12px;
   background-image: linear-gradient(rgba(50, 8, 8, 0.3), rgba(50, 8, 8, 0.3)),
     url('images/Modal-Backgrounds/Modal-Servant-Background.webp');  
-  background-size: 100%;
+  background-size: 100% 100%;     /* width AND height match the section, so all 4 corners line up */
+  background-repeat: no-repeat;   /* never tile the image */
   padding: 2%;
   border-radius: 15px;
 }

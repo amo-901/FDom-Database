@@ -348,7 +348,8 @@ body {
   padding: 0;
   background-image: linear-gradient(rgba(50, 8, 8, 0.3), rgba(50, 8, 8, 0.3)),
     url('images/Modal-Backgrounds/Master_Back.webp');
-  background-size: 100%;
+  background-size: 100% 100%;     /* width AND height match the section, so all 4 corners line up */
+  background-repeat: no-repeat;   /* never tile the image */
   padding: 2%;
   border-radius: 15px;
 }
@@ -402,7 +403,8 @@ body {
   background-color: azure;
   background-image: linear-gradient(rgba(50, 8, 8, 0.3), rgba(50, 8, 8, 0.3)),
     url('images/Modal-Backgrounds/Master_Ascension_Background.webp');
-  background-size: 100%;
+  background-size: 100% 100%;     /* width AND height match the section, so all 4 corners line up */
+  background-repeat: no-repeat;   /* never tile the image */
   border-radius: 15px;
   padding: 2%;
 }
