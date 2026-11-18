@@ -160,3 +160,43 @@ body {
 .hidden {
   display: none;
 }
+
+/* ---------- phone screens (600px wide or less) ---------- */
+/* everything in here only applies on narrow screens; the desktop layout above is unchanged */
+@media (max-width: 600px) {
+  /* header: small logo on the left, the 4 links in a 2x2 block beside it */
+  .upper-taskbar {
+    gap: 12px;                        /* small space between the logo and the links */
+    padding: 8px 10px;                /* a little breathing room around the edge of the screen */
+  }
+
+  #taskbar-logo {
+    height: 80px;                     /* was 200px */
+    width: 80px;
+    margin-left: 0;                   /* was 50px */
+  }
+
+  .taskbar-buttons {
+    display: grid;                    /* switch from one long row to a grid... */
+    grid-template-columns: repeat(2, auto);  /* ...of 2 columns, so the 4 links form a 2x2 block */
+    gap: 6px 18px;                    /* 6px between rows, 18px between columns */
+  }
+
+  .nav-button {
+    font-size: 18px;                  /* was 30px */
+    margin: 0;                        /* remove the default h1 margins so the block stays compact */
+  }
+
+  /* search bar: use almost the full width */
+  .search-board {
+    width: 90%;                       /* was 50% */
+    margin: 15px auto;
+  }
+
+  /* card grid: 2 cards per row (2 x 170px cards + gap fits a ~412px screen) */
+  .cards-grid {
+    grid-template-columns: repeat(2, 170px);
+    gap: 16px;                        /* was 25px */
+    padding: 10px 0;
+  }
+}
