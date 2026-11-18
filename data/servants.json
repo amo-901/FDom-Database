@@ -10448,7 +10448,7 @@
       "deck_magic": "3,3,4,5",
       "deck_special": null,
       "has_unique": false,
-      "has_assets": false,
+      "has_assets": true,
       "is_beta_servant": true,
       "is_custom_servant": false,
       "servant_creator": null,
@@ -13580,5 +13580,25 @@
     "Servant Enhancement",
     "Utility",
     "VP Gain"
+  ],
+  "objectives": [
+    {
+      "card_name": "Example Objective 1",
+      "card_slug": "Example-Objective-1"
+    },
+    {
+      "card_name": "Example Objective 2",
+      "card_slug": "Example-Objective-2"
+    }
+  ],
+  "events": [
+    {
+      "card_name": "Example Event 1",
+      "card_slug": "Example-Event-1"
+    },
+    {
+      "card_name": "Example Event 2",
+      "card_slug": "Example-Event-2"
+    }
   ]
 }

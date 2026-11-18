@@ -1,5 +1,20 @@
+/* emerald colours for the orbs and aurora (orbs.css reads these variables) */
+:root {
+  --orb-rgb: 16, 140, 90;      /* emerald orbs */
+  --aurora-1: 16, 150, 95;     /* emerald */
+  --aurora-2: 20, 110, 80;     /* deep teal-green */
+  --aurora-3: 60, 180, 120;    /* jade */
+}
+
+/* dark page with a green glow on the left and right edges, like the other pages */
 body {
-    background-color: rgb(21, 21, 21);
+    background: linear-gradient(
+        to right,
+        rgb(8, 70, 45) 0%,
+        rgb(21, 21, 21) 10%,
+        rgb(21, 21, 21) 90%,
+        rgb(8, 70, 45) 100%
+    );
 }
 
 .upper-taskbar {
@@ -29,4 +44,119 @@ body {
     color: inherit;
     text-decoration: none;
     cursor: url("resources/cursor.png") 12 0, pointer;
+}
+
+/* holds the search bar and centres it on the page */
+.search-board {
+  display: flex;               /* lay out the contents in a row */
+  justify-content: center;     /* centre the search bar horizontally */
+  width: 50%;                  /* half the page width */
+  margin: 30px auto;           /* space above/below, auto left/right centres the board itself */
+}
+
+/* the search input */
+.card-search {
+  width: 100%;                           /* fill the search board */
+  padding: 12px 14px;                    /* space inside the box */
+  background: rgb(5, 20, 12);            /* very dark green */
+  border: 1px solid rgb(16, 150, 95);    /* emerald outline */
+  border-radius: 6px;                    /* rounded corners */
+  color: white;                          /* typed text colour */
+  font-size: 16px;
+}
+
+/* faded hint text shown before the user types */
+.card-search::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* glow around the box while it's selected */
+.card-search:focus {
+  outline: none;
+  box-shadow: 0 0 8px 2px rgba(16, 150, 95, 0.6);
+}
+
+/* grid of matching cards */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(5, min(20%, 170px)); /* 5 columns, each 170px or 20% of the row, whichever is smaller */
+    justify-content: center;   /* centre the columns */
+    padding: 10px;
+    gap: 25px;                 /* space between cards */
+}
+
+/* wrapper for one card; perspective makes the 3D tilt look deep */
+.search-card-slot {
+  perspective: 800px;
+}
+
+/* a single card image */
+.search-card {
+  width: 170px;
+  height: 240px;
+  border: 1px solid rgb(6, 60, 38);   /* dark green border */
+  border-radius: 10px;
+
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg) translateY(0) scale(1);   /* resting position */
+  transition: transform 0.5s ease, box-shadow 0.5s ease;           /* smooth return when the mouse leaves */
+
+  cursor: pointer;
+}
+
+/* dark green glow while the mouse is over the card */
+.search-card.is-hovering {
+  box-shadow: 0 0 15px 5px rgb(10, 120, 70);
+}
+
+/* message shown when nothing matches */
+.no-results {
+  grid-column: 1 / -1;                 /* span the whole grid row */
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* dark full-screen background behind the enlarged card */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;                            /* cover the whole screen */
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;                 /* centre the image vertically */
+  justify-content: center;             /* centre the image horizontally */
+  z-index: 300;                        /* sit above everything else */
+
+  visibility: hidden;                  /* hidden until opened */
+  opacity: 0;
+  transition: opacity 0.25s ease;      /* fade in/out */
+}
+
+/* shown state, added by search.js */
+.lightbox-overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* the enlarged card image */
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  border: 1px solid rgba(16, 150, 95, 0.5);   /* emerald outline */
+}
+
+/* the × button in the top right */
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 36px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }

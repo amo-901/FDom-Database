@@ -52,6 +52,40 @@ body {
   margin: 15px;
 }
 
+.sort-dropdown {
+  position: relative;
+  margin: 0 2%;
+}
+
+.sort-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: rgb(5, 12, 30);
+  border: 1px solid rgba(60, 96, 255, 0.5);
+  border-radius: 6px;
+  z-index: 50;
+}
+
+.sort-option {
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sort-option:hover {
+  background: rgb(13, 23, 96);
+}
+
+.sort-option.active {
+  color: gold;
+}
+
 .sidebar-search {
   width: 100%;
   margin-left: 5%;
@@ -74,7 +108,8 @@ body {
   border-radius: 6px;
   padding: 10px 20px;
   cursor: pointer;
-  margin: 0 5%;
+  margin: 0 2%;
+  margin-left: 0;
 }
 
 .filter-sidebar {
