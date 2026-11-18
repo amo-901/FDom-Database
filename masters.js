@@ -15,6 +15,7 @@ fetch('data/servants.json') // request the JSON data file
     allMasters = data.masters; // save the masters array so filtering can use it later
     buildCheckboxGroup('mechanicsFilterGroup', data.mechanicsList, 'mechanics-checkbox'); // create the mechanics filter checkboxes
     renderGrid(allMasters); // draw every master card on the page
+    openMasterFromUrl(); // if the URL has ?master=slug, open that master's popup right away
   });
 
 function renderGrid(masters) { // draws the grid of master cards for the given list
@@ -106,7 +107,12 @@ function copyTilt(img, label) { // copies the card's current tilt/lift onto its 
   label.style.transform = img.style.transform; // same tilt, lift and scale
 }
 
-function openMasterModal(master) { // fills in and shows the popup for one master
+function openMasterModal(master) { // opens the popup AND updates the URL (used for user clicks)
+  showMasterModal(master); // fill in and show the popup
+  history.pushState({ slug: master.slug }, '', `?master=${master.slug}`); // add a history entry and change the URL to ?master=slug without reloading
+}
+
+function showMasterModal(master) { // fills in and shows the popup for one master (does not touch the URL)
   document.getElementById('modalPortrait').src =
     `images/Masters/${master.master_id}/Profile.webp`; // set the big portrait image
   document.getElementById('modalCustomText').classList.toggle('hidden', !master.is_custom_master); // show "CUSTOM" on the portrait only for custom masters
@@ -282,8 +288,11 @@ document.getElementById('modalAscension').addEventListener('click', () => { // c
   openImageLightbox(ascension.src, ascension.alt); // show it enlarged
 });
 
-function closeMasterModal() { // hides the master popup
+function closeMasterModal() { // hides the master popup and resets the URL
   document.getElementById('modalOverlay').classList.remove('is-open'); // remove the open class
+  if (new URLSearchParams(window.location.search).has('master')) { // if the URL currently has ?master=...
+    history.pushState({}, '', window.location.pathname); // back to plain masters.html
+  }
 }
 
 function buildSortMenu() { // creates the entries of the sort dropdown
@@ -321,6 +330,25 @@ document.getElementById('sortToggle').addEventListener('click', () => { // sort 
 document.addEventListener('click', (event) => { // any click on the page
   if (!event.target.closest('.sort-dropdown')) { // if it was outside the sort dropdown
     document.getElementById('sortMenu').classList.add('hidden'); // close the dropdown
+  }
+});
+
+function getMasterSlugFromUrl() { // reads the master slug from the URL
+  return new URLSearchParams(window.location.search).get('master'); // value of ?master=... (null if absent)
+}
+
+function openMasterFromUrl() { // opens the popup for the master named in the URL, if any
+  const master = allMasters.find((m) => m.slug === getMasterSlugFromUrl()); // find the master whose slug matches
+  if (master) showMasterModal(master); // no pushState: the URL is already right
+}
+
+// runs when the user presses the browser's Back/Forward buttons
+window.addEventListener('popstate', () => { // fires on Back/Forward navigation
+  const master = allMasters.find((m) => m.slug === getMasterSlugFromUrl()); // find the master matching the new URL
+  if (master) { // URL points at a master
+    showMasterModal(master); // show that master's popup
+  } else { // URL has no master
+    document.getElementById('modalOverlay').classList.remove('is-open'); // close the popup
   }
 });
 
