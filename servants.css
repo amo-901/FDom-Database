@@ -89,6 +89,7 @@ body {
 
 .servant-card-slot {
   perspective: 800px;
+  position: relative; /* lets the CUSTOM label sit on top of the card */
 }
 
 .servant-card {
@@ -171,11 +172,56 @@ body {
   cursor: pointer;
 }
 
-.modal-portrait {
+/* wrapper around the modal portrait; takes the size the portrait used to have */
+.portrait-frame {
+  position: relative;      /* lets the CUSTOM label be positioned on top of it */
   width: 30%;
+  flex-shrink: 0;          /* don't get squashed by the text beside it */
+  align-self: flex-start;  /* only as tall as the image, so the label centres on the image */
+  margin-bottom: 20px;
+}
+
+.modal-portrait {
+  width: 100%;             /* fill the frame */
   border-radius: 10px;
   display: block;
-  margin-bottom: 20px;
+}
+
+/* "CUSTOM" text laid over custom servant/master images */
+.custom-label {
+  position: absolute;
+  display: flex;
+  align-items: center;             /* centre the text vertically */
+  justify-content: center;         /* centre the text horizontally */
+  color: rgba(255, 255, 255, 0.5); /* white at 50% opacity */
+  font-weight: bold;
+  letter-spacing: 4px;
+  pointer-events: none;            /* clicks and hovers go through to the card underneath */
+}
+
+/* size and position on a grid card: covers only the artwork (not the name and traits at the bottom), so the text centres on the picture */
+.card-custom-label {
+  top: 0;
+  left: 0;
+  width: 172px;                     /* 170px card + 1px border on each side */
+  height: 194px;                     /* artwork is roughly the top 80% of the 242px card */
+  font-size: 24px;
+  letter-spacing: 3px;
+  padding-left: 3px;                /* balances the extra space letter-spacing adds after the last letter */
+  box-sizing: border-box;           /* keep the padding inside the 172px width */
+  transform-origin: 86px 121px;     /* rotate around the card's centre, so the label tilts exactly like the card */
+  transform: rotateX(0deg) rotateY(0deg) translateY(0) scale(1);  /* same resting position as the card */
+  transition: transform 0.5s ease;
+}
+
+/* on the modal portrait: covers the whole portrait */
+.modal-custom-label {
+  inset: 0;
+  font-size: 48px;
+}
+
+.custom-label.hidden {
+  display: none;           /* hidden for non-custom servants/masters */
 }
 
 .modal-info {

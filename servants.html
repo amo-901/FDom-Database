@@ -78,7 +78,10 @@
         <div class="servant-modal">
             <button class="modal-close" id="modalClose">&times;</button>
             <div class="modal-info">
-                <img class="modal-portrait" id="modalPortrait" src="" alt="">
+                <div class="portrait-frame"> <!-- wrapper so the CUSTOM label can sit on top of the portrait -->
+                    <img class="modal-portrait" id="modalPortrait" src="" alt="">
+                    <span class="custom-label modal-custom-label hidden" id="modalCustomLabel">CUSTOM</span>
+                </div>
                     <div class="modal-text">
                         <div class="modal-servant-title">
                             <h1 class="servant-name" id="servant-name">Servant Name</h1>

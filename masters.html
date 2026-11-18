@@ -61,7 +61,10 @@
         <div class="master-modal">
             <button class="modal-close" id="modalClose">&times;</button>
             <div class="modal-info">
-                <img class="modal-portrait" id="modalPortrait" src="" alt="">
+                <div class="portrait-frame"> <!-- wrapper so the CUSTOM label can sit on top of the portrait -->
+                    <img class="modal-portrait" id="modalPortrait" src="" alt="">
+                    <span class="custom-label modal-custom-label hidden" id="modalCustomLabel">CUSTOM</span>
+                </div>
                     <div class="modal-text">
                         <div class="modal-master-title">
                             <h1 class="master-name" id="master-name">Master Name</h1>

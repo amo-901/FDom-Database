@@ -31,10 +31,13 @@ function renderGrid(masters) { // draws the grid of master cards for the given l
     img.alt = master.master_name; // text shown if the image fails to load (also for screen readers)
     img.loading = 'lazy'; // for making it easier to load website
 
+    const label = master.is_custom_master ? createCustomLabel() : null; // custom masters get a "CUSTOM" overlay, others get nothing
+
     // tilt + lift
     img.addEventListener('mouseenter', () => { // when the mouse enters the card
       img.classList.add('is-hovering'); // add hover styling class
       img.style.transition = 'none'; // turn off transition so the tilt follows the mouse instantly
+      copyTilt(img, label); // make the CUSTOM label (if any) do the same
     });
 
     img.addEventListener('mousemove', (event) => { // whenever the mouse moves over the card
@@ -53,12 +56,14 @@ function renderGrid(masters) { // draws the grid of master cards for the given l
         rotateY(${rotateY}deg)
         scale(1.06)
       `; // lift the card 20px, apply the tilt, and enlarge it slightly
+      copyTilt(img, label); // tilt the CUSTOM label (if any) with the card
     });
 
     img.addEventListener('mouseleave', () => { // when the mouse leaves the card
       img.classList.remove('is-hovering'); // remove hover styling
       img.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease'; // re-enable a smooth transition
       img.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)'; // return to the resting position
+      copyTilt(img, label); // return the CUSTOM label (if any) too
     });
     // --- end new ---
 
@@ -67,13 +72,28 @@ function renderGrid(masters) { // draws the grid of master cards for the given l
     });
 
     slot.appendChild(img); // put the image inside its slot
+    if (label) slot.appendChild(label); // put the CUSTOM label on top of the card
     grid.appendChild(slot); // put the slot into the grid
   });
+}
+
+function createCustomLabel() { // makes the "CUSTOM" text that sits on top of a grid card
+  const label = document.createElement('span'); // a span element for the text
+  label.classList.add('custom-label', 'card-custom-label'); // shared label style + grid-card size
+  label.textContent = 'CUSTOM'; // the text shown
+  return label; // hand it back so renderGrid can add it to the slot
+}
+
+function copyTilt(img, label) { // copies the card's current tilt/lift onto its CUSTOM label so they move together
+  if (!label) return; // not a custom card, nothing to do
+  label.style.transition = img.style.transition; // same animation speed
+  label.style.transform = img.style.transform; // same tilt, lift and scale
 }
 
 function openMasterModal(master) { // fills in and shows the popup for one master
   document.getElementById('modalPortrait').src =
     `images/Masters/${master.master_id}/Profile.webp`; // set the big portrait image
+  document.getElementById('modalCustomLabel').classList.toggle('hidden', !master.is_custom_master); // show "CUSTOM" on the portrait only for custom masters
 
   const abilityHeading = document.getElementById('ability-heading') // the "Abilities" heading
   const abilityContainer = document.getElementById('modalAbilities'); // the box that holds ability cards
