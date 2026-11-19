@@ -52,6 +52,21 @@ body {
   margin: 15px;
 }
 
+.show-toggle-label { /* the Beta / Custom checkboxes next to Sort and Filter */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  cursor: pointer;
+  margin-right: 2%;
+  white-space: nowrap;
+}
+
+.show-toggle-label input {
+  cursor: pointer;
+  accent-color: rgb(13, 23, 96); /* tick box matches the buttons */
+}
+
 .sort-dropdown {
   position: relative;
   margin: 0 2%;
@@ -99,6 +114,16 @@ body {
 
 .sidebar-search::placeholder {
   color: rgba(255, 255, 255, 0.4);
+}
+
+/* one shared font for the filter bar, the Beta/Custom checkboxes and the filter sidebar */
+.filter-toggle-btn,
+.sidebar-search,
+.show-toggle-label,
+.sort-menu,
+.filter-sidebar,
+.filter-sidebar button {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .filter-toggle-btn {
@@ -498,6 +523,19 @@ body {
   display: none;
 }
 
+/* slightly smaller text for the filter bar and sidebar (placed late so it wins over earlier sizes) */
+.filter-toggle-btn,
+.sidebar-search,
+.show-toggle-label,
+.sort-menu,
+.reset-btn {
+  font-size: 12px;
+}
+
+.filter-sidebar {
+  font-size: 14px; /* checkbox labels; the section headings scale down with it */
+}
+
 /* ---------- phone screens (600px wide or less) ---------- */
 /* everything in here only applies on narrow screens; the desktop layout above is unchanged */
 @media (max-width: 600px) {
@@ -528,6 +566,8 @@ body {
   .filter-board {
     width: auto;                      /* was 50% */
     margin: 10px;
+    flex-wrap: wrap;                  /* Beta / Custom drop to a second line if needed */
+    row-gap: 8px;
   }
 
   .sidebar-search {
@@ -540,5 +580,51 @@ body {
     grid-template-columns: repeat(2, 170px);
     gap: 16px;                        /* was 25px */
     padding: 10px 0;
+  }
+
+  /* filter sidebar: a slim drawer so part of the grid stays visible (tap the grid to close) */
+  .filter-sidebar {
+    width: min(70vw, 280px);          /* was min(90vw, 400px) */
+    padding: 16px 12px;               /* was 30px 20px */
+    height: 100vh;                    /* fallback for older browsers */
+    height: 100dvh;                   /* the real visible height, so the browser toolbar doesn't hide the bottom */
+  }
+
+  /* one column of checkboxes, packed close together */
+  #classFilterGroup,
+  #playstyleFilterGroup,
+  #prosFilterGroup,
+  #consFilterGroup,
+  #mechanicsFilterGroup {
+    grid-template-columns: 1fr;       /* was 2 columns */
+    gap: 0;
+  }
+
+  .filter-checkbox-label {
+    display: flex;                    /* box and text side by side, lined up */
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;                   /* was 4px */
+    font-size: 13px;
+  }
+
+  .filter-checkbox-label input {
+    margin: 0;                        /* drop the browser's default checkbox margin */
+  }
+
+  .filter-group {
+    margin-top: 12px;                 /* was 20px */
+  }
+
+  .filter-group h3,
+  .filter-group summary {
+    margin: 0 0 4px;                  /* tighter headings */
+  }
+
+  /* Reset stays pinned to the bottom of the drawer while the list scrolls */
+  .reset-btn {
+    position: sticky;
+    bottom: 0;
+    margin-bottom: 0;
   }
 }

@@ -47,7 +47,11 @@ fetch('data/servants.json') // fetch the json file from the data folder
     buildCheckboxGroup('playstyleFilterGroup', allPlaystyles, 'playstyle-checkbox');
     buildCheckboxGroup('prosFilterGroup', data.traitsList.pros, 'pro-checkbox'); // these grab the pros lists from the json
     buildCheckboxGroup('consFilterGroup', data.traitsList.cons, 'con-checkbox');
-    renderGrid(allServants); // draw every servant card
+    if (window.matchMedia('(max-width: 600px)').matches) { // on phone screens the Pros/Cons lists are very long...
+      document.getElementById('prosSection').open = false; // ...so start them folded up
+      document.getElementById('consSection').open = false; // (tap the heading to open them)
+    }
+    applyFilters(); // draw the grid (beta/custom servants are hidden until their checkbox is ticked)
     openServantFromUrl(); // this will read the current url and immediately load that servant modal data after the grid is rendered
   });
 
@@ -289,6 +293,8 @@ function applyFilters() { // re-filters and re-sorts the servants based on all c
   const selectedPlaystyles = getCheckedValues('playstyle-checkbox'); // ticked playstyles
   const selectedPros = getCheckedValues('pro-checkbox'); // ticked pros
   const selectedCons = getCheckedValues('con-checkbox'); // ticked cons
+  const showBeta = document.getElementById('showBeta').checked; // is the "Beta" checkbox ticked?
+  const showCustom = document.getElementById('showCustom').checked; // is the "Custom" checkbox ticked?
 
   const filteredServants = allServants.filter((servant) => { // keep only servants that pass every check
     const matchesSearch = servant.servant_name.toLowerCase().includes(searchText); // name contains the search text
@@ -296,7 +302,9 @@ function applyFilters() { // re-filters and re-sorts the servants based on all c
     const matchesPlaystyle = selectedPlaystyles.length === 0 || selectedPlaystyles.includes(servant.playstyle); // same logic for playstyle
     const matchesPros = selectedPros.every((trait) => servant.traits.pros.includes(trait)); // servant must have ALL ticked pros
     const matchesCons = selectedCons.every((trait) => servant.traits.cons.includes(trait)); // servant must have ALL ticked cons
-    return matchesSearch && matchesClass && matchesPlaystyle && matchesPros && matchesCons; // must pass all five
+    const passesBeta = !servant.is_beta_servant || showBeta; // beta servants only show when "Beta" is ticked
+    const passesCustom = !servant.is_custom_servant || showCustom; // custom servants only show when "Custom" is ticked
+    return matchesSearch && matchesClass && matchesPlaystyle && matchesPros && matchesCons && passesBeta && passesCustom; // must pass every check
   });
 
   const compare = sortModes[sortMode].compare;      // get the compare function for the current sort mode
@@ -330,6 +338,9 @@ document.getElementById('sidebarSearch').addEventListener('input', () => { // wh
   clearTimeout(searchDebounceTimer); // cancel the previous timer
   searchDebounceTimer = setTimeout(applyFilters, 150); // wait 150ms after the last keystroke, then filter (debouncing)
 });
+
+document.getElementById('showBeta').addEventListener('change', applyFilters); // ticking/unticking "Beta" redraws the grid
+document.getElementById('showCustom').addEventListener('change', applyFilters); // ticking/unticking "Custom" redraws the grid
 
 document.getElementById('filterToggle').addEventListener('click', () => { // filter button clicked
   document.getElementById('filterSidebar').classList.toggle('is-open');   // open the sidebar if closed, close it if open

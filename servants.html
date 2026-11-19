@@ -38,6 +38,8 @@
                 <ul class="sort-menu hidden" id="sortMenu"></ul>
             </div>
             <button id="filterToggle" class="filter-toggle-btn">Filter</button>
+            <label class="show-toggle-label"><input type="checkbox" id="showBeta"> Beta</label> <!-- ticked = show beta entries -->
+            <label class="show-toggle-label"><input type="checkbox" id="showCustom"> Custom</label> <!-- ticked = show custom entries -->
         </div>
         <div class="cards-grid" id="cardsGrid"></div> <!-- the grid line is here -->
     </main>
@@ -49,25 +51,25 @@
     <div class="filter-sidebar" id="filterSidebar">
         <button class="sidebar-close" id="sidebarClose">&times;</button>
         <div class="filter-content">         
-            <div class="filter-group">
-                <h3>Class</h3>
+            <details class="filter-group" id="classSection" open> <!-- tap the heading to fold this section -->
+                <summary>Class</summary>
                 <div id="classFilterGroup"></div>
-            </div>
+            </details>
 
-            <div class="filter-group">
-                <h3>Playstyle</h3>
+            <details class="filter-group" id="playstyleSection" open> <!-- tap the heading to fold this section -->
+                <summary>Playstyle</summary>
                 <div id="playstyleFilterGroup"></div>
-            </div>
+            </details>
             
-            <div class="filter-group">
-                <h3>Pros</h3>
+            <details class="filter-group" id="prosSection" open> <!-- tap the heading to fold this section -->
+                <summary>Pros</summary>
                 <div id="prosFilterGroup"></div>
-            </div>
+            </details>
 
-            <div class="filter-group">
-                <h3>Cons</h3>
+            <details class="filter-group" id="consSection" open> <!-- tap the heading to fold this section -->
+                <summary>Cons</summary>
                 <div id="consFilterGroup"></div>
-            </div>
+            </details>
         </div>
 
         <button id="resetFilters" class="reset-btn">Reset</button>

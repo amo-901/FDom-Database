@@ -14,7 +14,7 @@ fetch('data/servants.json') // request the JSON data file
   .then(data => { // runs once the parsed data is ready
     allMasters = data.masters; // save the masters array so filtering can use it later
     buildCheckboxGroup('mechanicsFilterGroup', data.mechanicsList, 'mechanics-checkbox'); // create the mechanics filter checkboxes
-    renderGrid(allMasters); // draw every master card on the page
+    applyFilters(); // draw the grid (beta/custom masters are hidden until their checkbox is ticked)
     openMasterFromUrl(); // if the URL has ?master=slug, open that master's popup right away
   });
 
@@ -221,11 +221,15 @@ function getCheckedValues(checkboxClass) { // returns the values of all ticked c
 function applyFilters() { // re-filters the masters based on the search box and checkboxes
   const searchText = document.getElementById('sidebarSearch').value.toLowerCase(); // search text, lowercased for case-insensitive matching
   const selectedMechanics = getCheckedValues('mechanics-checkbox'); // ticked mechanics
+  const showBeta = document.getElementById('showBeta').checked; // is the "Beta" checkbox ticked?
+  const showCustom = document.getElementById('showCustom').checked; // is the "Custom" checkbox ticked?
 
   const filteredMasters = allMasters.filter((master) => { // keep only masters that pass every check
     const matchesSearch = master.master_name.toLowerCase().includes(searchText); // name contains the search text
     const matchesMechanics = selectedMechanics.length === 0 || selectedMechanics.includes(master.mechanic); // nothing ticked means "allow all"; otherwise the master's mechanic must be ticked
-    return matchesSearch && matchesMechanics; // must match both
+    const passesBeta = !master.is_beta_master || showBeta; // beta masters only show when "Beta" is ticked
+    const passesCustom = !master.is_custom_master || showCustom; // custom masters only show when "Custom" is ticked
+    return matchesSearch && matchesMechanics && passesBeta && passesCustom; // must pass every check
   });
 
   const compare = sortModes[sortMode].compare; // get the compare function for the current sort mode
@@ -243,8 +247,22 @@ document.getElementById('sidebarSearch').addEventListener('input', () => { // wh
   searchDebounceTimer = setTimeout(applyFilters, 150); // wait 150ms after the last keystroke, then filter (debouncing)
 });
 
+document.getElementById('showBeta').addEventListener('change', applyFilters); // ticking/unticking "Beta" redraws the grid
+document.getElementById('showCustom').addEventListener('change', applyFilters); // ticking/unticking "Custom" redraws the grid
+
 document.getElementById('filterToggle').addEventListener('click', () => { // filter button clicked
-  document.getElementById('filterSidebar').classList.add('is-open'); // slide the sidebar open
+  document.getElementById('filterSidebar').classList.toggle('is-open'); // open the sidebar if closed, close it if open
+});
+
+// clicking anywhere outside the sidebar closes it
+document.addEventListener('click', (event) => { // listen for any click on the page
+  const sidebar = document.getElementById('filterSidebar'); // the sidebar element
+  const clickedInsideSidebar = event.target.closest('#filterSidebar'); // is the click inside the sidebar?
+  const clickedFilterButton = event.target.closest('#filterToggle'); // is the click on the filter button?
+
+  if (!clickedInsideSidebar && !clickedFilterButton) { // clicked somewhere else
+    sidebar.classList.remove('is-open'); // close the sidebar
+  }
 });
 
 document.getElementById('sidebarClose').addEventListener('click', () => { // sidebar close button clicked
