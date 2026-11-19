@@ -7,14 +7,24 @@
 }
 
 /* dark page with a green glow on the left and right edges, like the other pages */
-body {
-    background: linear-gradient(
-        to right,
-        rgb(8, 70, 45) 0%,
-        rgb(21, 21, 21) 10%,
-        rgb(21, 21, 21) 90%,
-        rgb(8, 70, 45) 100%
-    );
+html {
+  background-color: rgb(21, 21, 21); /* dark base: shown instead of white if the browser can't redraw fast enough while scrolling */
+}
+
+/* the coloured edge gradient lives on its own fixed layer, so it's drawn once and never repainted while scrolling */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;                       /* behind the aurora (-2) and the orbs (-1) */
+  pointer-events: none;
+  background: linear-gradient(
+      to right,
+      rgb(8, 70, 45) 0%,
+      rgb(21, 21, 21) 10%,
+      rgb(21, 21, 21) 90%,
+      rgb(8, 70, 45) 100%
+  );
 }
 
 .upper-taskbar {

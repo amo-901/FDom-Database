@@ -1,11 +1,21 @@
-body {
-    background: linear-gradient(
-        to right,
-        rgb(96, 13, 13) 0%,
-        rgb(21, 21, 21) 10%,
-        rgb(21, 21, 21) 90%,
-        rgb(96, 13, 13) 100%
-    );
+html {
+  background-color: rgb(21, 21, 21); /* dark base: shown instead of white if the browser can't redraw fast enough while scrolling */
+}
+
+/* the coloured edge gradient lives on its own fixed layer, so it's drawn once and never repainted while scrolling */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;                       /* behind the aurora (-2) and the orbs (-1) */
+  pointer-events: none;
+  background: linear-gradient(
+      to right,
+      rgb(96, 13, 13) 0%,
+      rgb(21, 21, 21) 10%,
+      rgb(21, 21, 21) 90%,
+      rgb(96, 13, 13) 100%
+  );
 }
 
 .upper-taskbar {
@@ -589,9 +599,9 @@ body {
     min-width: 0;                     /* lets the box shrink so Sort and Filter still fit */
   }
 
-  /* card grid: 2 cards per row (2 x 170px cards + gap fits a ~412px screen) */
+  /* card grid: 2 cards per row (2 x 153px cards + gap fits a ~412px screen) */
   .cards-grid {
-    grid-template-columns: repeat(2, 170px);
+    grid-template-columns: repeat(2, 153px);  /* was 170px; matches the smaller cards below */
     gap: 16px;                        /* was 25px */
     padding: 10px 0;
   }
@@ -665,5 +675,19 @@ body {
   .modal-headings {
     font-size: 12.5px;                /* was 25px ("Servant Skills", "Servant Deck", "Servant Assets") */
     -webkit-text-stroke: 0.5px rgb(141, 122, 15);  /* was 1px; thinner outline for the smaller text */
+  }
+
+  /* grid cards 10% smaller on phones */
+  .servant-card {
+    width: 153px;                     /* was 170px */
+    height: 216px;                    /* was 240px */
+  }
+
+  /* CUSTOM / BETA label shrinks with the card so it still sits on the artwork */
+  .card-overlay-label {
+    width: 155px;                     /* 153px card + 1px border on each side (was 172px) */
+    height: 175px;                    /* 90% of the desktop label height */
+    font-size: 22px;                  /* was 24px */
+    transform-origin: 77.5px 109px;   /* the smaller card's centre, so the label still tilts with it */
   }
 }
