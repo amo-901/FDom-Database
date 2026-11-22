@@ -13581,24 +13581,377 @@
     "Utility",
     "VP Gain"
   ],
+  "objectivesList": [
+    "Fuyuki",
+    "Moon Cell",
+    "Trifas"
+  ],
+  "eventsList": [
+    "Pre-Climax",
+    "Climax"
+  ],
   "objectives": [
     {
-      "card_name": "Example Objective 1",
-      "card_slug": "Example-Objective-1"
+      "card_name": "Ambush",
+      "card_slug": "Ambush",
+      "map": "Fuyuki",
+      "description": null
     },
     {
-      "card_name": "Example Objective 2",
-      "card_slug": "Example-Objective-2"
+      "card_name": "Break Bounded Field",
+      "card_slug": "Break-Bounded-Field",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Bring Illya Back",
+      "card_slug": "Bring-Illya-Back",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Contain Neutral Threat",
+      "card_slug": "Contain-Neutral-Threat",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Desperation Move",
+      "card_slug": "Desperation-Move",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Difficult Terrain",
+      "card_slug": "Difficult-Terrain",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Fated Confrontation",
+      "card_slug": "Fated-Confrontation",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Honorable Duel",
+      "card_slug": "Honorable-Duel",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Open Ley Line",
+      "card_slug": "Open-Ley-Line",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Sacred Grounds",
+      "card_slug": "Sacred-Grounds",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Sacrificial Grounds",
+      "card_slug": "Sacrificial-Grounds",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Scavenge Ground Zero",
+      "card_slug": "Scavenge-Ground-Zero",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Suppressive Fire",
+      "card_slug": "Suppressive-Fire",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Synergize",
+      "card_slug": "Synergize",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Take High Ground",
+      "card_slug": "Take-High-Ground",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Test Of Strength",
+      "card_slug": "Test-Of-Strength",
+      "map": "Fuyuki",
+      "description": null
+    },
+    {
+      "card_name": "Anima Ataraxia",
+      "card_slug": "Anima-Ataraxia",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Cheat Artifact",
+      "card_slug": "Cheat-Artifact",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Chimeric Vortex",
+      "card_slug": "Chimeric-Vortex",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Close Quarters Combat",
+      "card_slug": "Close-Quarters-Combat",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Creative Impulse",
+      "card_slug": "Creative-Impulse",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Escape The Far Side",
+      "card_slug": "Escape-The-Far-Side",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Guerilla Tactics",
+      "card_slug": "Guerilla-Tactics",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Hack The Core",
+      "card_slug": "Hack-The-Core",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Imperious Elegance",
+      "card_slug": "Imperious-Elegance",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Intimidation",
+      "card_slug": "Intimidation",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Last Man Standing",
+      "card_slug": "Last-Man-Standing",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Rigged Gamble",
+      "card_slug": "Rigged-Gamble",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Show Of Force",
+      "card_slug": "Show-Of-Force",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Tactical Superiority",
+      "card_slug": "Tactical-Superiority",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Territory Grab",
+      "card_slug": "Territory-Grab",
+      "map": "Moon Cell",
+      "description": null
+    },
+    {
+      "card_name": "Aerial Combat",
+      "card_slug": "Aerial-Combat",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Body Harvest",
+      "card_slug": "Body-Harvest",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Break Bondage",
+      "card_slug": "Break-Bondage",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Call To Arms",
+      "card_slug": "Call-To-Arms",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Callous Experimentation",
+      "card_slug": "Callous-Experimentation",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Caustic Downpour",
+      "card_slug": "Caustic-Downpour",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Cautious Duplicity",
+      "card_slug": "Cautious-Duplicity",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Coup De Grace",
+      "card_slug": "Coup-De-Grace",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Fall To Infamy",
+      "card_slug": "Fall-To-Infamy",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Flimsy Arete",
+      "card_slug": "Flimsy-Arete",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Moment Of Clarity",
+      "card_slug": "Moment-Of-Clarity",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Royal Reception",
+      "card_slug": "Royal-Reception",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Scouting",
+      "card_slug": "Scouting",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Senseless Destruction",
+      "card_slug": "Senseless-Destruction",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Shock And Awe",
+      "card_slug": "Shock-And-Awe",
+      "map": "Trifas",
+      "description": null
+    },
+    {
+      "card_name": "Surge Of Brutality",
+      "card_slug": "Surge-Of-Brutality",
+      "map": "Trifas",
+      "description": null
     }
   ],
   "events": [
     {
-      "card_name": "Example Event 1",
-      "card_slug": "Example-Event-1"
+      "card_name": "Angra Mainyu's Curse",
+      "card_slug": "Angra-Mainyus-Curse",
+      "phase": "Pre-Climax",
+      "description": null
     },
     {
-      "card_name": "Example Event 2",
-      "card_slug": "Example-Event-2"
+      "card_name": "Angra Mainyu's Essence",
+      "card_slug": "Angra-Mainyus-Essence",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Angra Mainyu's Shade",
+      "card_slug": "Angra-Mainyus-Shade",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Battle In Shinto",
+      "card_slug": "Battle-In-Shinto",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Calm Before The Storm",
+      "card_slug": "Calm-Before-The-Storm",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Killers In Miyama",
+      "card_slug": "Killers-In-Miyama",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Overwhelming Rage",
+      "card_slug": "Overwhelming-Rage",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Perfect Flow",
+      "card_slug": "Perfect-Flow",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Turning Point",
+      "card_slug": "Turning-Point",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "Visions Of A Distant Life",
+      "card_slug": "Visions-Of-A-Distant-Life",
+      "phase": "Pre-Climax",
+      "description": null
+    },
+    {
+      "card_name": "At The Gates Of Hell",
+      "card_slug": "At-The-Gates-Of-Hell",
+      "phase": "Climax",
+      "description": null
+    },
+    {
+      "card_name": "Heaven's Feel",
+      "card_slug": "Heavens-Feel",
+      "phase": "Climax",
+      "description": null
+    },
+    {
+      "card_name": "The Night Fate Stood Still",
+      "card_slug": "The-Night-Fate-Stood-Still",
+      "phase": "Climax",
+      "description": null
     }
   ]
 }

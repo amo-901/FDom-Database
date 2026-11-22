@@ -77,11 +77,11 @@ function buildCardIndex(data) { // returns an array of { name, src } objects, on
   });
 
   (data.objectives || []).forEach((card) => { // each objective card (|| [] means a missing list is treated as empty)
-    addCard(card.card_name, `images/Objectives/${card.card_slug}.webp`); // image lives in images/Objectives
+    addCard(card.card_name, `images/Objectives/${card.map}/${card.card_slug}.webp`); // image lives in images/Objectives/<map>, e.g. Objectives/Fuyuki/Take-High-Ground.webp
   });
 
   (data.events || []).forEach((card) => { // each event card
-    addCard(card.card_name, `images/Events/${card.card_slug}.webp`); // image lives in images/Events
+    addCard(card.card_name, `images/Events/${card.phase}/${card.card_slug}.webp`); // image lives in images/Events/<phase>, e.g. Events/Climax/Heavens-Feel.webp
   });
 
   return cards; // hand back the finished list
