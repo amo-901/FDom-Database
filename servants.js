@@ -293,6 +293,7 @@ function applyFilters() { // re-filters and re-sorts the servants based on all c
   const selectedPlaystyles = getCheckedValues('playstyle-checkbox'); // ticked playstyles
   const selectedPros = getCheckedValues('pro-checkbox'); // ticked pros
   const selectedCons = getCheckedValues('con-checkbox'); // ticked cons
+  const showOfficial = document.getElementById('showOfficial').checked; // is the "Official" checkbox ticked?
   const showBeta = document.getElementById('showBeta').checked; // is the "Beta" checkbox ticked?
   const showCustom = document.getElementById('showCustom').checked; // is the "Custom" checkbox ticked?
 
@@ -302,9 +303,11 @@ function applyFilters() { // re-filters and re-sorts the servants based on all c
     const matchesPlaystyle = selectedPlaystyles.length === 0 || selectedPlaystyles.includes(servant.playstyle); // same logic for playstyle
     const matchesPros = selectedPros.every((trait) => servant.traits.pros.includes(trait)); // servant must have ALL ticked pros
     const matchesCons = selectedCons.every((trait) => servant.traits.cons.includes(trait)); // servant must have ALL ticked cons
+    const isOfficial = !servant.is_beta_servant && !servant.is_custom_servant; // official = neither beta nor custom
+    const passesOfficial = !isOfficial || showOfficial; // official servants only show when "Official" is ticked
     const passesBeta = !servant.is_beta_servant || showBeta; // beta servants only show when "Beta" is ticked
     const passesCustom = !servant.is_custom_servant || showCustom; // custom servants only show when "Custom" is ticked
-    return matchesSearch && matchesClass && matchesPlaystyle && matchesPros && matchesCons && passesBeta && passesCustom; // must pass every check
+    return matchesSearch && matchesClass && matchesPlaystyle && matchesPros && matchesCons && passesOfficial && passesBeta && passesCustom; // must pass every check
   });
 
   const compare = sortModes[sortMode].compare;      // get the compare function for the current sort mode
@@ -339,6 +342,7 @@ document.getElementById('sidebarSearch').addEventListener('input', () => { // wh
   searchDebounceTimer = setTimeout(applyFilters, 150); // wait 150ms after the last keystroke, then filter (debouncing)
 });
 
+document.getElementById('showOfficial').addEventListener('change', applyFilters); // ticking/unticking "Official" redraws the grid
 document.getElementById('showBeta').addEventListener('change', applyFilters); // ticking/unticking "Beta" redraws the grid
 document.getElementById('showCustom').addEventListener('change', applyFilters); // ticking/unticking "Custom" redraws the grid
 

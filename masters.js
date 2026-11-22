@@ -221,15 +221,18 @@ function getCheckedValues(checkboxClass) { // returns the values of all ticked c
 function applyFilters() { // re-filters the masters based on the search box and checkboxes
   const searchText = document.getElementById('sidebarSearch').value.toLowerCase(); // search text, lowercased for case-insensitive matching
   const selectedMechanics = getCheckedValues('mechanics-checkbox'); // ticked mechanics
+  const showOfficial = document.getElementById('showOfficial').checked; // is the "Official" checkbox ticked?
   const showBeta = document.getElementById('showBeta').checked; // is the "Beta" checkbox ticked?
   const showCustom = document.getElementById('showCustom').checked; // is the "Custom" checkbox ticked?
 
   const filteredMasters = allMasters.filter((master) => { // keep only masters that pass every check
     const matchesSearch = master.master_name.toLowerCase().includes(searchText); // name contains the search text
     const matchesMechanics = selectedMechanics.length === 0 || selectedMechanics.includes(master.mechanic); // nothing ticked means "allow all"; otherwise the master's mechanic must be ticked
+    const isOfficial = !master.is_beta_master && !master.is_custom_master; // official = neither beta nor custom
+    const passesOfficial = !isOfficial || showOfficial; // official masters only show when "Official" is ticked
     const passesBeta = !master.is_beta_master || showBeta; // beta masters only show when "Beta" is ticked
     const passesCustom = !master.is_custom_master || showCustom; // custom masters only show when "Custom" is ticked
-    return matchesSearch && matchesMechanics && passesBeta && passesCustom; // must pass every check
+    return matchesSearch && matchesMechanics && passesOfficial && passesBeta && passesCustom; // must pass every check
   });
 
   const compare = sortModes[sortMode].compare; // get the compare function for the current sort mode
@@ -247,6 +250,7 @@ document.getElementById('sidebarSearch').addEventListener('input', () => { // wh
   searchDebounceTimer = setTimeout(applyFilters, 150); // wait 150ms after the last keystroke, then filter (debouncing)
 });
 
+document.getElementById('showOfficial').addEventListener('change', applyFilters); // ticking/unticking "Official" redraws the grid
 document.getElementById('showBeta').addEventListener('change', applyFilters); // ticking/unticking "Beta" redraws the grid
 document.getElementById('showCustom').addEventListener('change', applyFilters); // ticking/unticking "Custom" redraws the grid
 
