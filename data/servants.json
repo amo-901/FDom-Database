@@ -6635,14 +6635,14 @@
         {
           "skill_order": 2,
           "is_shared": false,
-          "skill_name": "Hundred Faces",
+          "skill_name": "Hundred Faces (Noble Phantasm)",
           "skill_description": null,
           "card_artist": null
         },
         {
           "skill_order": 3,
           "is_shared": false,
-          "skill_name": "Hundred Faces (Noble Phantasm)",
+          "skill_name": "Hundred Faces",
           "skill_description": null,
           "card_artist": null
         }
