@@ -1,4 +1,4 @@
-# Fate / Domination Wiki
+# Fate / Domination Database
 
 A database for easily accessible data to the characters in the tabletop game Fate / Domination.
 
