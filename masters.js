@@ -155,9 +155,19 @@ function showMasterModal(master) { // fills in and shows the popup for one maste
     abilityContainer.classList.add('hidden'); // keep container hidden
   }
 
+  const ascensionHeading = document.getElementById('ascension-heading'); // the "Ascension" heading
+  const ascensionImage = document.getElementById('modalAscension'); // the ascension card image
+
   if (master.ascension) { // only if this master has an ascension card
-    document.getElementById('modalAscension').src = getAscensionPath(master); // set the ascension image
-    document.getElementById('modalAscension').alt = master.ascension.card_name; // set its alt text
+    ascensionHeading.classList.remove('hidden'); // show the heading
+    ascensionImage.classList.remove('hidden'); // show the image
+    ascensionImage.src = getAscensionPath(master); // set the ascension image
+    ascensionImage.alt = master.ascension.card_name; // set its alt text
+  } else { // no ascension card
+    ascensionHeading.classList.add('hidden'); // hide the heading
+    ascensionImage.classList.add('hidden'); // hide the image
+    ascensionImage.removeAttribute('src'); // clear the previous master's image so it can't linger
+    ascensionImage.alt = ''; // clear its alt text too
   }
 
   if (master.has_assets) { // only if this master has assets
