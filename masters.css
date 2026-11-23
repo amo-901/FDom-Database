@@ -318,6 +318,7 @@ body::before {
   flex-shrink: 0;          /* don't get squashed by the text beside it */
   align-self: flex-start;  /* only as tall as the image, so the label centres on the image */
   margin-bottom: 20px;
+  container-type: inline-size; /* lets the CUSTOM / BETA label size itself from this frame's width (cqw units) */
 }
 
 .modal-portrait {
@@ -358,7 +359,10 @@ body::before {
 /* on the modal portrait: covers the whole portrait */
 .modal-overlay-label {
   inset: 0;
-  font-size: 48px;
+  font-size: 48px;                  /* fallback for browsers without container query units */
+  font-size: 13.5cqw;               /* 13.5% of the portrait's width (~48px on a 1920px screen), so CUSTOM / BETA are the same size relative to the picture on PC and phone */
+  letter-spacing: 0.08em;           /* was 4px; in em so the spacing shrinks with the text */
+  padding-left: 0.08em;             /* balances the extra space letter-spacing adds after the last letter, keeping the words centred */
 }
 
 /* the colour is solid and the opacity is set on the whole word, so the solid letters hide
@@ -636,6 +640,21 @@ body::before {
     position: sticky;
     bottom: 0;
     margin-bottom: 0;
+  }
+
+  /* master modal: a little wider and taller, same as the servant modal on phones */
+  .master-modal {
+    width: 72vw;                      /* was 65vw */
+    max-height: 88vh;                 /* was 80vh */
+  }
+
+  .modal-section {
+    width: 100%;                      /* was min(65vw, 1600px), which overflowed the modal and got cut off */
+  }
+
+  .modal-headings {
+    font-size: 12.5px;                /* was 25px ("Master Abilities", "Master Ascension", "Master Assets") */
+    -webkit-text-stroke: 0.5px rgb(141, 122, 15);  /* was 1px; thinner outline for the smaller text */
   }
 
   /* grid cards 10% smaller on phones */

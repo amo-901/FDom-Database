@@ -204,6 +204,7 @@ body::before {
   flex-shrink: 0;          /* don't get squashed by the text beside it */
   align-self: flex-start;  /* only as tall as the image, so the label centres on the image */
   margin-bottom: 20px;
+  container-type: inline-size; /* lets the CUSTOM / BETA label size itself from this frame's width (cqw units) */
 }
 
 .modal-portrait {
@@ -244,7 +245,10 @@ body::before {
 /* on the modal portrait: covers the whole portrait */
 .modal-overlay-label {
   inset: 0;
-  font-size: 48px;
+  font-size: 48px;                  /* fallback for browsers without container query units */
+  font-size: 13.5cqw;               /* 13.5% of the portrait's width (~48px on a 1920px screen), so CUSTOM / BETA are the same size relative to the picture on PC and phone */
+  letter-spacing: 0.08em;           /* was 4px; in em so the spacing shrinks with the text */
+  padding-left: 0.08em;             /* balances the extra space letter-spacing adds after the last letter, keeping the words centred */
 }
 
 /* the colour is solid and the opacity is set on the whole word, so the solid letters hide
