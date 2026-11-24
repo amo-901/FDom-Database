@@ -316,8 +316,7 @@ body::before {
   position: relative;      /* lets the CUSTOM label be positioned on top of it */
   width: 30%;
   flex-shrink: 0;          /* don't get squashed by the text beside it */
-  align-self: flex-start;  /* only as tall as the image, so the label centres on the image */
-  margin-bottom: 20px;
+  align-self: center;      /* sits on the container's vertical centre line; still only as tall as the image, so the label centres on the image */
   container-type: inline-size; /* lets the CUSTOM / BETA label size itself from this frame's width (cqw units) */
 }
 
@@ -652,9 +651,37 @@ body::before {
     width: 100%;                      /* was min(65vw, 1600px), which overflowed the modal and got cut off */
   }
 
+  /* bigger cards inside the modal, same idea as the servant deck grid on phones */
+  .ability-grid,
+  .asset-grid {
+    grid-template-columns: repeat(5, 1fr);  /* still 5 per row, but each card fills its share of the row */
+    column-gap: 4px;                  /* was 3% */
+    row-gap: 8px;                     /* was 25px (abilities) / 3% (assets) */
+    padding: 4px;                     /* was 2% */
+  }
+
+  .ascension-portrait {
+    width: 30%;                       /* was 20%; grows with the other cards so it doesn't look tiny */
+  }
+
   .modal-headings {
     font-size: 12.5px;                /* was 25px ("Master Abilities", "Master Ascension", "Master Assets") */
     -webkit-text-stroke: 0.5px rgb(141, 122, 15);  /* was 1px; thinner outline for the smaller text */
+  }
+
+  /* master name and description: smaller text so they fit beside the portrait */
+  .modal-text {
+    margin: 8px;                      /* was 15px */
+  }
+
+  .master-name {
+    font-size: 12.5px;                /* same as the section headings; was the browser's default h1 size (32px) */
+    margin: 0 0 6px;                  /* drop the big default h1 margins */
+  }
+
+  .modal-master-description {
+    font-size: 10px;                  /* 20% smaller than the name (12.5px); was the browser's default (16px) */
+    margin: 0;
   }
 
   /* grid cards 10% smaller on phones */
