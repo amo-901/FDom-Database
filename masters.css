@@ -441,7 +441,8 @@ body::before {
   background-color: azure;
   background-image: linear-gradient(rgba(50, 8, 8, 0.3), rgba(50, 8, 8, 0.3)),
     url('images/Modal-Backgrounds/Master_Ascension_Background.webp');
-  background-size: 100% 100%;     /* width AND height match the section, so all 4 corners line up */
+  background-size: 100% 100%, 100% calc(100% + 8px); /* tint fills the box; the image is 8px taller so its bottom edge runs past the box and no white line shows */
+  background-position: top left;  /* pin both layers to the top, so the extra height spills out the bottom only */
   background-repeat: no-repeat;   /* never tile the image */
   border-radius: 15px;
   padding: 2%;
