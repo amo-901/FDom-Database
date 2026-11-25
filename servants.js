@@ -337,6 +337,11 @@ document.getElementById('imageLightbox').addEventListener('click', (event) => { 
   }
 });
 
+document.getElementById('modalPortrait').addEventListener('click', () => { // clicking the portrait image in the popup
+  const portrait = document.getElementById('modalPortrait'); // get that image element
+  openImageLightbox(portrait.src, portrait.alt); // show it enlarged
+});
+
 document.getElementById('sidebarSearch').addEventListener('input', () => { // whenever the user types in the search box
   clearTimeout(searchDebounceTimer); // cancel the previous timer
   searchDebounceTimer = setTimeout(applyFilters, 150); // wait 150ms after the last keystroke, then filter (debouncing)

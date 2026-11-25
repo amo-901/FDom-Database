@@ -320,6 +320,11 @@ document.getElementById('modalAscension').addEventListener('click', () => { // c
   openImageLightbox(ascension.src, ascension.alt); // show it enlarged
 });
 
+document.getElementById('modalPortrait').addEventListener('click', () => { // clicking the portrait image in the popup
+  const portrait = document.getElementById('modalPortrait'); // get that image element
+  openImageLightbox(portrait.src, portrait.alt); // show it enlarged
+});
+
 function closeMasterModal() { // hides the master popup and resets the URL
   document.getElementById('modalOverlay').classList.remove('is-open'); // remove the open class
   if (new URLSearchParams(window.location.search).has('master')) { // if the URL currently has ?master=...

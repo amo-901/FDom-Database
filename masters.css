@@ -529,7 +529,8 @@ body::before {
 
 .ability-card,
 .asset-card,
-.ascension-portrait {
+.ascension-portrait,
+.modal-portrait {
   cursor: zoom-in;
 }
 

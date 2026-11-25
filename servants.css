@@ -373,7 +373,8 @@ body::before {
 
 .modal-skills img,
 .deck-card,
-.asset-card {
+.asset-card,
+.modal-portrait {
   cursor: zoom-in;
 }
 
